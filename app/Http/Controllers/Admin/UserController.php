@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\Admin\User\StoreRequest;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -26,21 +29,21 @@ class UserController extends Controller
         $this->data->put('permissions', Permission::latest()->get());
     }
 
-    public function index()
+    public function index(): View
     {
         $users = User::latest()->paginate(15);
 
         return view('admin.user.index', compact(nameof($users)));
     }
 
-    public function create()
+    public function create(): View
     {
         $data = $this->data;
 
         return view('admin.user.create', compact(nameof($data)));
     }
 
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
         $data = $request->validated();
 
