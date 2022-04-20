@@ -21,12 +21,9 @@
                         categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        @foreach ($categories as $category)
+                            <li><a class="dropdown-item" href="#">{{ $category->title }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
 
@@ -36,18 +33,37 @@
                         tags
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        @foreach ($tags as $tag)
+                            <li><a class="dropdown-item" href="#">{{ $tag->title }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">register</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">login</a>
+                    </li>
+                @endguest
+
+                @auth
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+
+                            <input type="submit" class="btn btn-danger" value="logout">
+                        </form>
+                    </li>
+
+                    @can('admin', auth()->user())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.index') }}">admin</a>
+                        </li>
+                    @endcan
+                @endauth
             </ul>
 
             <form class="d-flex">

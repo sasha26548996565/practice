@@ -20,4 +20,6 @@
             </div>
         </div>
     @endforeach
+
+    {{ $posts->withQueryString()->links('vendor.pagination.bootstrap-5') }}
 @endsection

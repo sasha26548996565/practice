@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $posts = Post::latest()->get();
+        $posts = Post::latest()->paginate(15);
 
         return view('blog.index', compact(nameof($posts)));
     }
