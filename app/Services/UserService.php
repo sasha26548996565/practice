@@ -17,6 +17,8 @@ class UserService implements IService
     {
         try
         {
+            DB::beginTransaction();
+
             StoreUserJob::dispatch($data);
 
             DB::commit();
