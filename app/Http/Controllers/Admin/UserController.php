@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
@@ -12,7 +14,6 @@ use Spatie\Permission\Models\Permission;
 use App\Http\Requests\Admin\User\StoreRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {

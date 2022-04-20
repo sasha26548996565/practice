@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail\User;
 
 use Illuminate\Bus\Queueable;
@@ -11,7 +13,7 @@ class PasswordMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public string $password;
+    private string $password;
 
     public function __construct(string $password)
     {

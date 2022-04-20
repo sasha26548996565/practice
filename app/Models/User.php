@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Notifications\SendVerifyWithQueueNotification;
@@ -29,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const EDIT_USER_PERMISSION = 'edit-user';
     public const DELETE_USER_PERMISSION = 'delete-user';
 
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification(): void
     {
         $this->notify(new SendVerifyWithQueueNotification());
     }

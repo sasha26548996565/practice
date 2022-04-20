@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 if (!function_exists('nameof')) {
-    function nameof(string $var): string
+    function nameof(mixed $var): string
     {
         $backtrace = debug_backtrace()[0];
         $file = file($backtrace['file']);
