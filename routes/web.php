@@ -18,6 +18,11 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
                 Route::get('/create', 'UserController@create')->name('create');
                 Route::post('/store', 'UserController@store')->name('store');
             });
+
+            Route::middleware('permission:edit-user')->group(function () {
+                Route::get('/edit/{user}', 'UserController@edit')->name('edit');
+                Route::patch('/update/{user}', 'UserController@update')->name('update');
+            });
         });
     });
 });

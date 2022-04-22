@@ -18,4 +18,9 @@ class UserPolicy
     {
         return $user->hasPermissionTo(User::CREATE_USER_PERMISSION);
     }
+
+    public function updateUser(User $user): bool
+    {
+        return $user->hasPermissionTo(User::EDIT_POST_PERMISSION);
+    }
 }

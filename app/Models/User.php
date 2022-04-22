@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Notifications\SendVerifyWithQueueNotification;
+use Attribute;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\SendVerifyWithQueueNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -34,5 +36,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new SendVerifyWithQueueNotification());
+    }
+
+    public function getRoleName(): string
+    {
+        return "{$this->getRoleNames()[0]}";
     }
 }

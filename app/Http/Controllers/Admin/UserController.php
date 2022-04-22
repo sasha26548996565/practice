@@ -9,11 +9,12 @@ use App\Services\IService;
 use App\Services\UserService;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Role;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\Admin\User\StoreRequest;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Admin\User\UpdateRequest;
 
 class UserController extends Controller
 {
@@ -49,6 +50,20 @@ class UserController extends Controller
         $data = $request->validated();
 
         $this->service->store($data);
+
+        return to_route('admin.user.index');
+    }
+
+    public function edit(User $user): View
+    {
+        return view('admin.user.edit', ['user' => $user, 'data' => $this->data]);
+    }
+
+    public function update(UpdateRequest $request, User $user): RedirectResponse
+    {
+        $data = $request->validated();
+
+        $this->service->update($data, $user);
 
         return to_route('admin.user.index');
     }

@@ -13,9 +13,9 @@ class PasswordMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    private string $password;
+    public string $password;
 
-    public function __construct(string $password)
+    public function __construct($password)
     {
         $this->password = $password;
     }

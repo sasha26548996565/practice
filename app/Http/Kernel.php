@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CreateUserMiddleware;
+use App\Http\Middleware\UpdateUserMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -66,5 +69,7 @@ class Kernel extends HttpKernel
 
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+
+        'admin' => AdminMiddleware::class,
     ];
 }

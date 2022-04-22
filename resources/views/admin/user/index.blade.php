@@ -16,6 +16,10 @@
         <div class="card text-center mt-2">
             <div class="card-header">
                 {{ $user->name }}
+
+                @can('updateUser', auth()->user())
+                    <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning ml-3">edit</a>
+                @endcan
             </div>
 
             <div class="card-body">
