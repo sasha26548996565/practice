@@ -21,6 +21,11 @@ class UserPolicy
 
     public function updateUser(User $user): bool
     {
-        return $user->hasPermissionTo(User::EDIT_POST_PERMISSION);
+        return $user->hasPermissionTo(User::EDIT_USER_PERMISSION);
+    }
+
+    public function deleteUser(User $user): bool
+    {
+        return $user->hasPermissionTo(User::DELETE_USER_PERMISSION);
     }
 }

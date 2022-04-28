@@ -6,18 +6,19 @@ namespace App\Models;
 
 use Attribute;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\SendVerifyWithQueueNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+    use SoftDeletes;
 
     protected $fillable = ['name', 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
@@ -41,5 +42,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRoleName(): string
     {
         return "{$this->getRoleNames()[0]}";
+    }
+
+    public function whetherRemoved(): bool
+    {
+        return $this->deleted_at ? true : false;
     }
 }

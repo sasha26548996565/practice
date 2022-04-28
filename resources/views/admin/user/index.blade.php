@@ -17,8 +17,25 @@
             <div class="card-header">
                 {{ $user->name }}
 
-                @can('updateUser', auth()->user())
-                    <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning ml-3">edit</a>
+                @can('deleteUser', auth()->user())
+                    @if ($user->whetherRemoved())
+                        <form action="{{ route('admin.user.restore', $user->id) }}" method="POST">
+                            @csrf
+
+                            <input type="submit" class="btn btn-primary" value="restore user">
+                        </form>
+                    @else
+                        @can('updateUser', auth()->user())
+                            <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning ml-3">edit</a>
+                        @endcan
+
+                        <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <input type="submit" class="btn btn-danger" value="delete user">
+                        </form>
+                    @endif
                 @endcan
             </div>
 

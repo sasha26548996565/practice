@@ -23,6 +23,11 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
                 Route::get('/edit/{user}', 'UserController@edit')->name('edit');
                 Route::patch('/update/{user}', 'UserController@update')->name('update');
             });
+
+            Route::middleware('permission:delete-user')->group(function () {
+                Route::delete('destroy/{user}', 'UserController@destroy')->name('destroy');
+                Route::post('restore/{user}', 'UserController@restore')->name('restore');
+            });
         });
     });
 });

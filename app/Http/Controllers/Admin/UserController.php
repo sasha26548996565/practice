@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function index(): View
     {
-        $users = User::latest()->paginate(15);
+        $users = User::withTrashed()->latest()->paginate(15);
 
         return view('admin.user.index', compact(nameof($users)));
     }
@@ -64,6 +64,20 @@ class UserController extends Controller
         $data = $request->validated();
 
         $this->service->update($data, $user);
+
+        return to_route('admin.user.index');
+    }
+
+    public function destroy(User $user): RedirectResponse
+    {
+        $user->delete();
+
+        return to_route('admin.user.index');
+    }
+
+    public function restore(int $user): RedirectResponse
+    {
+        $user = User::onlyTrashed()->findOrFail($user)->restore();
 
         return to_route('admin.user.index');
     }
