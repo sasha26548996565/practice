@@ -29,6 +29,13 @@ Route::namespace('App\Http\Controllers')->middleware('verified')->group(function
                 Route::post('restore/{user}', 'UserController@restore')->name('restore');
             });
         });
+
+        Route::name('post.')->prefix('post')->group(function () {
+            Route::get('/', 'PostController@index')->name('index');
+            Route::get('show/{post}', 'PostController@show')->name('show');
+            Route::post('/add-comment/{post}', Comment\StoreController::class)->name('comment.store');
+            Route::post('/add-like/{post}', Like\StoreController::class)->name('like.store');
+        });
     });
 });
 

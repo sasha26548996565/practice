@@ -48,4 +48,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->deleted_at ? true : false;
     }
+
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'post_user_likes', 'user_id', 'post_id');
+    }
+
+    public function checkLike(int $postId): bool
+    {
+        return $this->likedPosts->contains($postId);
+    }
 }
